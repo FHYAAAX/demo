@@ -1,18 +1,20 @@
-# demo
-# TCP和UDP服务器与客户端演示
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCP和UDP服务器与客户端演示</title>
+</head>
+<body>
+<h1>TCP和UDP服务器与客户端演示</h1>
 
-本文档演示了如何使用Bash脚本和C语言编写的程序来创建和运行TCP和UDP服务器与客户端，以及如何使用tmux进行多窗格管理和网络监视。
+<h2>TCP 示例</h2>
 
-## TCP 示例
+<h3>环境设置</h3>
+<p>确保您的系统支持tmux和C编译环境。</p>
 
-### 环境设置
-
-确保您的系统支持tmux和C编译环境。
-
-### 服务器端
-
-```bash
-# 创建tmux会话并命名为 "TCP demo"
+<h3>服务器端</h3>
+<pre><code># 创建tmux会话并命名为 "TCP demo"
 tmux new-session -d -s "TCP demo"
 
 # 分割窗口布局
@@ -33,4 +35,8 @@ tmux send-keys -t 3 "sudo tcpdump -i lo -vvvnnXSK -s0 port 12000" Enter
 
 # 手动进入tmux会话以查看输出
 tmux attach-session -t "TCP demo"
+</code></pre>
+
+</body>
+</html>
 
