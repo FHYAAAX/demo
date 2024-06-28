@@ -10,12 +10,11 @@
 int main() {
     int sockfd;
     char buffer[MAXLINE];
-    char *hello = "Hello from client";
     struct sockaddr_in servaddr;
 
     // 创建UDP套接字
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("socket creation failed");
+        perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
@@ -26,16 +25,18 @@ int main() {
     servaddr.sin_port = htons(PORT);
     servaddr.sin_addr.s_addr = INADDR_ANY;
 
-    int n, len;
+    char *message = "Hello from client";
 
     // 发送消息给服务器
-    sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM, (const struct sockaddr *)&servaddr, sizeof(servaddr));
-    printf("Hello message sent.\n");
+    sendto(sockfd, (const char *)message, strlen(message), MSG_CONFIRM, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+    printf("Message sent to server: %s\n", message);
+
+    int n, len;
 
     // 接收服务器的回复
     n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *)&servaddr, &len);
     buffer[n] = '\0';
-    printf("Server : %s\n", buffer);
+    printf("Message from server: %s\n", buffer);
 
     close(sockfd);
 

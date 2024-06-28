@@ -14,7 +14,7 @@ int main() {
 
     // 创建UDP套接字
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("socket creation failed");
+        perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
@@ -28,24 +28,25 @@ int main() {
 
     // 绑定服务器地址
     if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-        perror("bind failed");
+        perror("Bind failed");
         exit(EXIT_FAILURE);
     }
 
     int len, n;
+    char *response = "Message received";
 
+    // 持续接收和回复客户端消息
     while (1) {
         len = sizeof(cliaddr);
 
         // 接收来自客户端的消息
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *)&cliaddr, &len);
         buffer[n] = '\0';
-
-        printf("Client : %s\n", buffer);
+        printf("Received message from client: %s\n", buffer);
 
         // 发送回复给客户端
-        sendto(sockfd, (const char *)buffer, strlen(buffer), MSG_CONFIRM, (const struct sockaddr *)&cliaddr, len);
-        printf("Message sent to client.\n");
+        sendto(sockfd, (const char *)response, strlen(response), MSG_CONFIRM, (const struct sockaddr *)&cliaddr, len);
+        printf("Reply sent to client: %s\n", response);
     }
 
     return 0;
