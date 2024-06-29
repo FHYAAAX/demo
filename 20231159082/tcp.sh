@@ -13,7 +13,7 @@ tmux send-keys -t 0 "./tcpserver" Enter
 tmux send-keys -t 1 "./tcpclient" Enter
 
 # 监视网络状态
-tmux send-keys -t 2 "watch -n 1 'netstat -antp | grep :12000'" Enter
+tmux send-keys -t 2 "sudo watch -n 1 'netstat -antp | grep :12000'" Enter
 
 # 新建一个窗格进行抓包并显示详细的抓包信息
 tmux split-window -v
